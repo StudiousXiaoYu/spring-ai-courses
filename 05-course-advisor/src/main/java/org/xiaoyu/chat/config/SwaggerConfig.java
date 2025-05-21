@@ -5,8 +5,6 @@ import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
-import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
-import org.springframework.ai.chat.memory.InMemoryChatMemory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -29,8 +27,4 @@ public class SwaggerConfig {
                         .url("https://springshop.wiki.github.org/docs"));
     }
 
-    @Bean
-    public InMemoryChatMemory inMemoryChatMemory() {
-        return new InMemoryChatMemory();
-    }
 }

@@ -31,6 +31,11 @@
             <artifactId>spring-ai-autoconfigure-model-chat-memory</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-rag</artifactId>
+        </dependency>
+
     </dependencies>
 
 </project>

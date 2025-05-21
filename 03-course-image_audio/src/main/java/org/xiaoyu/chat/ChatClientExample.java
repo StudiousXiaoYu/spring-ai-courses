@@ -30,6 +30,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
 import java.util.List;
 
@@ -69,9 +70,13 @@ public class ChatClientExample {
     @PostMapping("/chat_image")
     public String chatImage() {
         var imageResource = new ClassPathResource("/1.jpg");
-
-        var userMessage = new UserMessage("解释下你从这张图片看到什么了?",
-                new Media(MimeTypeUtils.IMAGE_JPEG, imageResource));
+        var userMessage = UserMessage.builder()
+                .text("解释下你从这张图片看到什么了?")
+                .media(List.of(Media.builder()
+                        .mimeType(MimeTypeUtils.IMAGE_PNG)
+                        .data(imageResource)
+                        .build()))
+                .build();
 
         String content = chatClient.prompt(new Prompt(userMessage,
                 OpenAiChatOptions.builder().model(OpenAiApi.ChatModel.GPT_4_O.getValue()).build())).call().content();
@@ -80,12 +85,13 @@ public class ChatClientExample {
 
     @PostMapping("/chat_image_url")
     public String chatImageUrl() throws MalformedURLException {
-        var userMessage = new UserMessage("解释下你从这张图片看到什么了?",
-                Media.builder()
+        var userMessage = UserMessage.builder()
+                .text("解释下你从这张图片看到什么了?")
+                .media(List.of(Media.builder()
                         .mimeType(MimeTypeUtils.IMAGE_PNG)
-                        .data(new URL(
-                                "https://cloudcache.tencent-cloud.com/qcloud/ui/portal-set/build/About/images/bg-product-series_87d.png"))
-                        .build());
+                        .data(URI.create("https://cloudcache.tencent-cloud.com/qcloud/ui/portal-set/build/About/images/bg-product-series_87d.png"))
+                        .build()))
+                .build();
 
         String content = chatClient.prompt(new Prompt(userMessage,
                 OpenAiChatOptions.builder().model(OpenAiApi.ChatModel.GPT_4_O.getValue()).build())).call().content();
@@ -94,11 +100,10 @@ public class ChatClientExample {
 
     @PostMapping("/chat_audio")
     public String chatAduio() {
-        var userMessage = new UserMessage("这段音乐说啥了",
-                Media.builder()
-                        .mimeType(MimeTypeUtils.parseMimeType("audio/mp3"))
-                        .data(new ClassPathResource("2.mp3"))
-                        .build());
+        var userMessage = UserMessage.builder()
+                .text("这段音乐说啥了")
+                .media(List.of(new Media(MimeTypeUtils.parseMimeType("audio/mp3"), new ClassPathResource("2.mp3"))))
+                .build();
 
         String content = chatClient.prompt(new Prompt(userMessage,
                 OpenAiChatOptions.builder().model(OpenAiApi.ChatModel.GPT_4_O_AUDIO_PREVIEW.getValue()).build())).call().content();

@@ -114,7 +114,7 @@ public class ChatClientExample {
                 .system(s->s.text(systemPrompt))
                 .user("帮我看下北京的天气")
                 .tools(MethodToolCallback.builder()
-                        .toolDefinition(ToolDefinition.builder(getAirQuality)
+                        .toolDefinition(ToolDefinition.builder()
                                 .description("Get the weather in location")
                                 .build())
                         .toolMethod(getAirQuality)
