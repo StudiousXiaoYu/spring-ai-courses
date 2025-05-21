@@ -1,0 +1,2538 @@
+<!DOCTYPE html>
+<!-- saved from url=(0080)https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_html_jsoup -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>ETL Pipeline :: Spring AI Reference</title>
+    <link rel="prev" href="https://docs.spring.io/spring-ai/reference/1.0/api/retrieval-augmented-generation.html">
+    <link rel="next" href="https://docs.spring.io/spring-ai/reference/1.0/api/structured-output-converter.html">
+    <meta name="generator" content="Antora 3.2.0-alpha.6">
+    <script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=G-QKH5Y4LHLR&amp;cx=c&amp;_slc=1"></script><script async="" src="https://www.google-analytics.com/analytics.js"></script><script>
+!function (theme, navWidth) {
+  if (theme === 'dark') document.documentElement.classList.add('dark-theme')
+  if (navWidth) document.documentElement.style.setProperty('--nav-width', `${navWidth}px`)
+}(localStorage && localStorage.getItem('theme') || (matchMedia('(prefers-color-scheme: dark)')?.matches && 'dark'),
+  localStorage && localStorage.getItem('nav-width'))
+    </script>
+    <link rel="stylesheet" href="./ETL_files/site.css">
+    <link rel="stylesheet" href="./ETL_files/search.css">
+    <link rel="stylesheet" href="./ETL_files/page-search.css">
+    <link rel="stylesheet" href="./ETL_files/asciidoctor-tabs.css">
+
+    <meta name="antora-ui-version" content="v0.4.17"> 
+    <meta name="version" content="1.0.0-M7">
+    <meta name="component" content="ai">
+    <meta name="latest-version" content="false">
+    <link rel="icon" href="https://docs.spring.io/spring-ai/reference/_/img/favicon.ico" type="image/vnd.microsoft.icon">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://spring.io/">
+        <img id="springlogo" class="block" src="./ETL_files/spring-logo.svg" alt="Spring">
+      </a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#">Why Spring</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://spring.io/why-spring">Overview</a>
+            <a class="navbar-item" href="https://spring.io/microservices">Microservices</a>
+            <a class="navbar-item" href="https://spring.io/reactive">Reactive</a>
+            <a class="navbar-item" href="https://spring.io/event-driven">Event
+              Driven</a>
+            <a class="navbar-item" href="https://spring.io/cloud">Cloud</a>
+            <a class="navbar-item" href="https://spring.io/web-applications">Web
+              Applications</a>
+            <a class="navbar-item" href="https://spring.io/serverless">Serverless</a>
+            <a class="navbar-item" href="https://spring.io/batch">Batch</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#">Learn</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://spring.io/learn">Overview</a>
+            <a class="navbar-item" href="https://spring.io/quickstart">Quickstart</a>
+            <a class="navbar-item" href="https://spring.io/guides">Guides</a>
+            <a class="navbar-item" href="https://spring.io/blog">Blog</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#">Projects</a>
+          <div class="navbar-dropdown" style="min-width: 280px">
+            <a class="navbar-item" href="https://spring.io/projects">Overview</a>
+            <a class="navbar-item" href="https://spring.io/projects/spring-boot">Spring Boot</a>
+            <a class="navbar-item" href="https://spring.io/projects/spring-framework">Spring Framework</a>
+            <a class="navbar-item" href="https://spring.io/projects/spring-cloud">Spring Cloud</a>
+            <a class="navbar-item" href="https://spring.io/projects/spring-cloud-dataflow">Spring Cloud Data Flow</a>
+            <a class="navbar-item" href="https://spring.io/projects/spring-data">Spring Data</a>
+            <a class="navbar-item" href="https://spring.io/projects/spring-integration">Spring Integration</a>
+            <a class="navbar-item" href="https://spring.io/projects/spring-batch">Spring Batch</a>
+            <a class="navbar-item" href="https://spring.io/projects/spring-security">Spring Security</a>
+            <a class="navbar-item navbar-item-special" href="https://spring.io/projects">View all projects</a>
+            <li class="navbar-item navbar-item-special-3">DEVELOPMENT TOOLS</li>
+            <a class="navbar-item" href="https://spring.io/tools">Spring Tools 4</a>
+            <a class="navbar-item navbar-item-special-2" href="https://start.spring.io/">Spring Initializr
+              <svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><polyline points="15 10.94 15 15 1 15 1 1 5.06 1" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2"></polyline><polyline points="8.93 1 15 1 15 7.07" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2"></polyline><line x1="15" y1="1" x2="8" y2="8" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2"></line></svg></a>
+          </div>
+        </div>
+
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#">Academy</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://spring.academy/courses">Courses</a>
+            <a class="navbar-item" href="https://spring.academy/learning-path">Get Certified</a>
+          </div>
+        </div>
+
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#">Solutions</a>
+          <div class="navbar-dropdown lg">
+            <a class="navbar-item" href="https://spring.io/solutions">Overview</a>
+            <a class="navbar-item" href="https://spring.io/support">Spring Runtime</a>
+            <a class="navbar-item" href="https://spring.io/consulting">Spring Consulting</a>
+            <a class="navbar-item" href="https://spring.academy/teams">Spring Academy For Teams</a>
+            <a class="navbar-item" href="https://spring.io/security">Security Advisories</a>
+          </div>
+        </div>
+
+        <div class="navbar-item has-dropdown is-hoverable is-community">
+          <a class="navbar-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#">Community</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://spring.io/community">Overview</a>
+            <a class="navbar-item" href="https://spring.io/events">Events</a>
+            <a class="navbar-item" href="https://spring.io/team">Team</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <label class="theme-toggler">
+      <input type="checkbox" id="switch-theme-checkbox" name="switch-theme-checkbox">
+      <span class="icon"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="moon" class="svg-inline--fa fa-moon moon" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path fill="currentColor" d="M223.5 32C100 32 0 132.3 0 256S100 480 223.5 480c60.6 0 115.5-24.2 155.8-63.4c5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-9.8 1.7-19.8 2.6-30.1 2.6c-96.9 0-175.5-78.8-175.5-176c0-65.8 36-123.1 89.3-153.3c6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-6.3-.5-12.6-.8-19-.8z"></path>
+        </svg>
+        <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="sun" class="svg-inline--fa fa-sun sun" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M361.5 1.2c5 2.1 8.6 6.6 9.6 11.9L391 121l107.9 19.8c5.3 1 9.8 4.6 11.9 9.6s1.5 10.7-1.6 15.2L446.9 256l62.3 90.3c3.1 4.5 3.7 10.2 1.6 15.2s-6.6 8.6-11.9 9.6L391 391 371.1 498.9c-1 5.3-4.6 9.8-9.6 11.9s-10.7 1.5-15.2-1.6L256 446.9l-90.3 62.3c-4.5 3.1-10.2 3.7-15.2 1.6s-8.6-6.6-9.6-11.9L121 391 13.1 371.1c-5.3-1-9.8-4.6-11.9-9.6s-1.5-10.7 1.6-15.2L65.1 256 2.8 165.7c-3.1-4.5-3.7-10.2-1.6-15.2s6.6-8.6 11.9-9.6L121 121 140.9 13.1c1-5.3 4.6-9.8 9.6-11.9s10.7-1.5 15.2 1.6L256 65.1 346.3 2.8c4.5-3.1 10.2-3.7 15.2-1.6zM160 256a96 96 0 1 1 192 0 96 96 0 1 1 -192 0zm224 0a128 128 0 1 0 -256 0 128 128 0 1 0 256 0z"></path>
+        </svg></span>
+      <span class="text">light</span>
+    </label>
+  </nav>
+</header>
+<script>
+!function (theme) {
+  if (theme === 'dark') {
+    document.getElementById('switch-theme-checkbox').parentElement.classList.add('active')
+  }
+}(localStorage && localStorage.getItem('theme') || (matchMedia('(prefers-color-scheme: dark)')?.matches && 'dark'))
+</script>
+<div class="body">
+<div class="nav-container" data-component="ai" data-version="1.0.0-M7">
+  <aside class="nav">
+    <div class="panels">
+      <div class="nav-panel-menu is-active" data-panel="menu">
+        <nav class="nav-menu">
+<div class="context">
+  <span class="title">Spring AI</span>
+  <span class="version">1.0.0-M7</span>
+  <button class="browse-version" id="browse-version">
+    <svg height="24px" id="Layer_1" style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="24px" xml:space="preserve"><g><path d="M256,224c-17.7,0-32,14.3-32,32s14.3,32,32,32c17.7,0,32-14.3,32-32S273.7,224,256,224L256,224z"></path><path d="M128.4,224c-17.7,0-32,14.3-32,32s14.3,32,32,32c17.7,0,32-14.3,32-32S146,224,128.4,224L128.4,224z"></path><path d="M384,224c-17.7,0-32,14.3-32,32s14.3,32,32,32s32-14.3,32-32S401.7,224,384,224L384,224z"></path></g></svg>
+  </button>
+  <div class="search">
+  <button class="DocSearch-Button search-button">
+    <svg enable-background="new 0 0 32 32" id="Glyph" version="1.1" viewBox="0 0 32 32" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+      <path d="M27.414,24.586l-5.077-5.077C23.386,17.928,24,16.035,24,14c0-5.514-4.486-10-10-10S4,8.486,4,14  s4.486,10,10,10c2.035,0,3.928-0.614,5.509-1.663l5.077,5.077c0.78,0.781,2.048,0.781,2.828,0  C28.195,26.633,28.195,25.367,27.414,24.586z M7,14c0-3.86,3.14-7,7-7s7,3.14,7,7s-3.14,7-7,7S7,17.86,7,14z" id="XMLID_223_"></path>
+    </svg>
+    <span>Search</span>
+    <span class="search-key">CTRL + k</span>
+  </button>
+</div>
+</div><ul class="nav-list">
+  <li class="nav-item is-active is-current-path" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/index.html">Overview</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/concepts.html">AI Concepts</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/getting-started.html">Getting Started</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/chatclient.html">Chat Client API</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/advisors.html">Advisors</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/index.html">AI Models</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/chatmodel.html">Chat Models</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/chat/comparison.html">Chat Models Comparison</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/chat/bedrock-converse.html">Amazon Bedrock Converse</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/chat/anthropic-chat.html">Anthropic 3</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/chat/functions/anthropic-chat-functions.html">Anthropic Function Calling (Deprecated)</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/chat/azure-openai-chat.html">Azure OpenAI</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/chat/functions/azure-open-ai-chat-functions.html">Azure OpenAI Function Calling</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/chat/deepseek-chat.html">DeepSeek AI</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/chat/dmr-chat.html">Docker Model Runner</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/chat/google-vertexai.html">Google VertexAI</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/chat/vertexai-gemini-chat.html">VertexAI Gemini</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/chat/groq-chat.html">Groq</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/chat/huggingface.html">Hugging Face</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/chat/mistralai-chat.html">Mistral AI</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/chat/functions/mistralai-chat-functions.html">Mistral Function Calling (Deprecated)</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/chat/minimax-chat.html">MiniMax</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/chat/functions/minimax-chat-functions.html">MinmaxFunction Calling</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/chat/moonshot-chat.html">Moonshot AI</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/chat/nvidia-chat.html">NVIDIA</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/chat/ollama-chat.html">Ollama</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/chat/functions/ollama-chat-functions.html">Ollama Function Calling (Deprecated)</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/chat/perplexity-chat.html">Perplexity AI</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text" style="cursor: pointer;">OCI Generative AI</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/chat/oci-genai/cohere-chat.html">Cohere</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/chat/openai-chat.html">OpenAI</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/chat/functions/openai-chat-functions.html">OpenAI Function Calling (Deprecated)</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/chat/qianfan-chat.html">QianFan</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/chat/zhipuai-chat.html">ZhiPu AI</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/chat/watsonx-ai-chat.html">watsonx.AI</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/embeddings.html">Embedding Models</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/bedrock.html">Amazon Bedrock</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/embeddings/bedrock-cohere-embedding.html">Cohere</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/embeddings/bedrock-titan-embedding.html">Titan</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/embeddings/azure-openai-embeddings.html">Azure OpenAI</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/embeddings/mistralai-embeddings.html">Mistral AI</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/embeddings/minimax-embeddings.html">MiniMax</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/embeddings/oci-genai-embeddings.html">OCI GenAI</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/embeddings/ollama-embeddings.html">Ollama</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/embeddings/onnx.html">(ONNX) Transformers</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/embeddings/openai-embeddings.html">OpenAI</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/embeddings/postgresml-embeddings.html">PostgresML</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/embeddings/qianfan-embeddings.html">QianFan</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text" style="cursor: pointer;">VertexAI</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/embeddings/vertexai-embeddings-text.html">Text Embedding</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/embeddings/vertexai-embeddings-multimodal.html">Multimodal Embedding</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/embeddings/watsonx-ai-embeddings.html">watsonx.AI</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/embeddings/zhipuai-embeddings.html">ZhiPu AI</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/imageclient.html">Image Models</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/image/azure-openai-image.html">Azure OpenAI</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/image/openai-image.html">OpenAI</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/image/stabilityai-image.html">Stability</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/image/zhipuai-image.html">ZhiPuAI</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/image/qianfan-image.html">QianFan</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#api/audio">Audio Models</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/audio/transcriptions.html">Transcription API</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/audio/transcriptions/azure-openai-transcriptions.html">Azure OpenAI</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/audio/transcriptions/openai-transcriptions.html">OpenAI</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/audio/speech.html">Text-To-Speech (TTS) API</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/audio/speech/openai-speech.html">OpenAI</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#api/moderation">Moderation Models</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/moderation/openai-moderation.html">OpenAI</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/vectordbs.html">Vector Databases</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/vectordbs/azure.html">Azure AI Service</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/vectordbs/azure-cosmos-db.html">Azure Cosmos DB</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/vectordbs/apache-cassandra.html">Apache Cassandra Vector Store</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/vectordbs/chroma.html">Chroma</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/vectordbs/couchbase.html">Couchbase</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/vectordbs/elasticsearch.html">Elasticsearch</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/vectordbs/gemfire.html">GemFire</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/vectordbs/mariadb.html">MariaDB Vector Store</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/vectordbs/milvus.html">Milvus</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/vectordbs/mongodb.html">MongoDB Atlas</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/vectordbs/neo4j.html">Neo4j</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/vectordbs/opensearch.html">OpenSearch</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/vectordbs/oracle.html">Oracle</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/vectordbs/pgvector.html">PGvector</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/vectordbs/pinecone.html">Pinecone</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/vectordbs/qdrant.html">Qdrant</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/vectordbs/redis.html">Redis</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/vectordbs/hana.html">SAP Hana</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/vectordbs/typesense.html">Typesense</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/vectordbs/weaviate.html">Weaviate</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item is-active is-current-path" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/retrieval-augmented-generation.html">Retrieval Augmented Generation (RAG)</a>
+<ul class="nav-list">
+  <li class="nav-item is-current-page is-active" data-depth="2">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html">ETL Pipeline</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/structured-output-converter.html">Structured Output</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/tools.html">Tool Calling</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/tools-migration.html">Migrating to ToolCallback API</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/mcp/mcp-overview.html">Model Context Protocol (MCP)</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/mcp/mcp-client-boot-starter-docs.html">MCP Client Boot Starters</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/mcp/mcp-server-boot-starter-docs.html">MCP Server Boot Starters</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/mcp/mcp-helpers.html">MCP Utilities</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/multimodality.html">Multimodality</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/observability/index.html">Observability</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/prompt.html">Prompts</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/testing.html">AI Model Evaluation</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/functions.html">Function Calling (Deprecated)</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/function-callback.html">FunctionCallback API (Deprecated)</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text" style="cursor: pointer;">Service Connections</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/docker-compose.html">Docker Compose</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/testcontainers.html">Testcontainers</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/api/cloud-bindings.html">Cloud Bindings</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/contribution-guidelines.html">Contribution Guidelines</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="https://docs.spring.io/spring-ai/reference/1.0/upgrade-notes.html">Upgrade Notes</a>
+  </li>
+</ul>
+  </li>
+</ul>
+          <div class="toggle-sm">
+            <button id="nav-toggle-2" class="nav-toggle"></button>
+          </div>
+        </nav>
+      </div>
+      <div class="nav-collapse">
+        <button id="nav-collapse-toggle"><span></span></button>        
+      </div>
+    </div>
+    <div class="nav-resize"></div>
+  </aside>
+</div>
+<script>
+!function (sidebar) {
+  if (sidebar) {
+    document.body.classList.add('nav-sm')
+  }
+}(localStorage && localStorage.getItem('sidebar') === 'close')
+</script><main class="article">
+<div class="toolbar" role="navigation">
+  <button id="nav-toggle-1" class="nav-toggle"></button>
+<div class="search">
+  <button class="DocSearch-Button search-button">
+      <svg enable-background="new 0 0 32 32" id="Glyph" version="1.1" viewBox="0 0 32 32" xml:space="preserve"
+           xmlns="http://www.w3.org/2000/svg">
+      <path d="M27.414,24.586l-5.077-5.077C23.386,17.928,24,16.035,24,14c0-5.514-4.486-10-10-10S4,8.486,4,14  s4.486,10,10,10c2.035,0,3.928-0.614,5.509-1.663l5.077,5.077c0.78,0.781,2.048,0.781,2.828,0  C28.195,26.633,28.195,25.367,27.414,24.586z M7,14c0-3.86,3.14-7,7-7s7,3.14,7,7s-3.14,7-7,7S7,17.86,7,14z" id="XMLID_223_"></path>
+    </svg>
+    <span>Search</span>
+    <span class="search-key">CTRL + k</span>
+  </button>
+</div>
+</div>
+  <div class="content">
+<aside class="sidebar">
+  <div class="content">
+    <div class="toc" data-title="ETL Pipeline" data-levels="2">
+      <div class="toc-menu"><h3>ETL Pipeline</h3><ul><li data-level="1"><a href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_api_overview" class="">API Overview</a></li><li data-level="1"><a href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_etl_interfaces" class="">ETL Interfaces</a></li><li data-level="2"><a href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_documentreader" class="">DocumentReader</a></li><li data-level="2"><a href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_documenttransformer" class="">DocumentTransformer</a></li><li data-level="2"><a href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_documentwriter" class="">DocumentWriter</a></li><li data-level="2"><a href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#etl-class-diagram" class="">ETL Class Diagram</a></li><li data-level="1"><a href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_documentreaders">DocumentReaders</a></li><li data-level="2"><a href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_json" class="">JSON</a></li><li data-level="2"><a href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_text" class="">Text</a></li><li data-level="2"><a href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_html_jsoup" class="is-active">HTML (JSoup)</a></li><li data-level="2"><a href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_markdown">Markdown</a></li><li data-level="2"><a href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_pdf_page">PDF Page</a></li><li data-level="2"><a href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_pdf_paragraph">PDF Paragraph</a></li><li data-level="2"><a href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_tika_docx_pptx_html">Tika (DOCX, PPTX, HTML…​)</a></li><li data-level="1"><a href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_transformers">Transformers</a></li><li data-level="2"><a href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_textsplitter">TextSplitter</a></li><li data-level="2"><a href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_tokentextsplitter">TokenTextSplitter</a></li><li data-level="2"><a href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_contentformattransformer">ContentFormatTransformer</a></li><li data-level="2"><a href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_keywordmetadataenricher">KeywordMetadataEnricher</a></li><li data-level="2"><a href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_summarymetadataenricher">SummaryMetadataEnricher</a></li><li data-level="1"><a href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_writers">Writers</a></li><li data-level="2"><a href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_file">File</a></li><li data-level="2"><a href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_vectorstore">VectorStore</a></li></ul></div>
+    </div>
+    <div class="sidebar-links">
+        <a href="https://github.com/spring-projects/spring-ai/blob/v1.0.0-M7/spring-ai-docs/src/main/antora/modules/ROOT/pages/api/etl-pipeline.adoc">
+          <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="m16 2.012 3 3L16.713 7.3l-3-3zM4 14v3h3l8.299-8.287-3-3zm0 6h16v2H4z"></path></svg>
+          Edit this Page
+        </a>
+              <a href="https://github.com/spring-projects/spring-ai" title="GitHub">
+          <svg xmlns="http://www.w3.org/2000/svg" height="512px" id="Layer_1" version="1.1" viewBox="0 0 512 512" width="512px"><style type="text/css">
+              .st0{fill-rule:evenodd;clip-rule:evenodd;} </style><g><path class="st0" d="M256,32C132.3,32,32,134.8,32,261.7c0,101.5,64.2,187.5,153.2,217.9c11.2,2.1,15.3-5,15.3-11.1   c0-5.5-0.2-19.9-0.3-39.1c-62.3,13.9-75.5-30.8-75.5-30.8c-10.2-26.5-24.9-33.6-24.9-33.6c-20.3-14.3,1.5-14,1.5-14   c22.5,1.6,34.3,23.7,34.3,23.7c20,35.1,52.4,25,65.2,19.1c2-14.8,7.8-25,14.2-30.7c-49.7-5.8-102-25.5-102-113.5   c0-25.1,8.7-45.6,23-61.6c-2.3-5.8-10-29.2,2.2-60.8c0,0,18.8-6.2,61.6,23.5c17.9-5.1,37-7.6,56.1-7.7c19,0.1,38.2,2.6,56.1,7.7   c42.8-29.7,61.5-23.5,61.5-23.5c12.2,31.6,4.5,55,2.2,60.8c14.3,16.1,23,36.6,23,61.6c0,88.2-52.4,107.6-102.3,113.3   c8,7.1,15.2,21.1,15.2,42.5c0,30.7-0.3,55.5-0.3,63c0,6.1,4,13.3,15.4,11C415.9,449.1,480,363.1,480,261.7   C480,134.8,379.7,32,256,32z"></path></g></svg>
+          GitHub Project
+        </a>
+        <a href="https://stackoverflow.com/questions/tagged/spring">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M290.7 311L95 269.7 86.8 309l195.7 41zm51-87L188.2 95.7l-25.5 30.8 153.5 128.3zm-31.2 39.7L129.2 179l-16.7 36.5L293.7 300zM262 32l-32 24 119.3 160.3 32-24zm20.5 328h-200v39.7h200zm39.7 80H42.7V320h-40v160h359.5V320h-40z"></path></svg>
+          Stack Overflow
+        </a>
+    </div>
+  </div>
+</aside>
+<article class="doc">
+<div class="breadcrumbs-container">
+  <nav class="breadcrumbs" aria-label="breadcrumbs">
+    <ul>
+      <li><a href="https://docs.spring.io/spring-ai/reference/1.0/index.html">Spring AI</a></li>
+      <li><a href="https://docs.spring.io/spring-ai/reference/1.0/api/retrieval-augmented-generation.html">Retrieval Augmented Generation (RAG)</a></li>
+      <li><a href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html">ETL Pipeline</a></li>
+    </ul>
+  </nav>
+</div><div class="admonitionblock important latest">
+  <table>
+    <tbody><tr>
+      <td class="icon">
+        <i class="fa icon-important" title="Important"></i>
+      </td>
+      <td class="content">
+        <div class="paragraph">
+          <p>This version is still in development and is not considered stable yet. For the latest snapshot version, please use <a href="https://docs.spring.io/spring-ai/reference/api/etl-pipeline.html">Spring AI 1.0.0-SNAPSHOT</a>!</p>
+        </div>
+      </td>
+    </tr></tbody>
+  </table>
+</div>
+<h1 id="page-title" class="page">ETL Pipeline</h1>
+<aside class="toc embedded"><div class="toc-menu"><h3>ETL Pipeline</h3><ul><li data-level="1"><a href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_api_overview">API Overview</a></li><li data-level="1"><a href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_etl_interfaces">ETL Interfaces</a></li><li data-level="2"><a href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_documentreader">DocumentReader</a></li><li data-level="2"><a href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_documenttransformer">DocumentTransformer</a></li><li data-level="2"><a href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_documentwriter">DocumentWriter</a></li><li data-level="2"><a href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#etl-class-diagram">ETL Class Diagram</a></li><li data-level="1"><a href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_documentreaders">DocumentReaders</a></li><li data-level="2"><a href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_json">JSON</a></li><li data-level="2"><a href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_text">Text</a></li><li data-level="2"><a href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_html_jsoup">HTML (JSoup)</a></li><li data-level="2"><a href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_markdown">Markdown</a></li><li data-level="2"><a href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_pdf_page">PDF Page</a></li><li data-level="2"><a href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_pdf_paragraph">PDF Paragraph</a></li><li data-level="2"><a href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_tika_docx_pptx_html">Tika (DOCX, PPTX, HTML…​)</a></li><li data-level="1"><a href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_transformers">Transformers</a></li><li data-level="2"><a href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_textsplitter">TextSplitter</a></li><li data-level="2"><a href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_tokentextsplitter">TokenTextSplitter</a></li><li data-level="2"><a href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_contentformattransformer">ContentFormatTransformer</a></li><li data-level="2"><a href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_keywordmetadataenricher">KeywordMetadataEnricher</a></li><li data-level="2"><a href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_summarymetadataenricher">SummaryMetadataEnricher</a></li><li data-level="1"><a href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_writers">Writers</a></li><li data-level="2"><a href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_file">File</a></li><li data-level="2"><a href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_vectorstore">VectorStore</a></li></ul></div></aside><div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Extract, Transform, and Load (ETL) framework serves as the backbone of data processing within the Retrieval Augmented Generation (RAG) use case.</p>
+</div>
+<div class="paragraph">
+<p>The ETL pipeline orchestrates the flow from raw data sources to a structured vector store, ensuring data is in the optimal format for retrieval by the AI model.</p>
+</div>
+<div class="paragraph">
+<p>The RAG use case is text to augment the capabilities of generative models by retrieving relevant information from a body of data to enhance the quality and relevance of the generated output.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_api_overview"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_api_overview"></a>API Overview</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The ETL pipelines creates, transforms and stores <code>Document</code> instances.</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./ETL_files/spring-ai-document1-api.jpg" alt="Spring AI Message API" width="400">
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>Document</code> class contains text, metadata and optionally additional media types like images, audio and video.</p>
+</div>
+<div class="paragraph">
+<p>There are three main components of the ETL pipeline,</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>DocumentReader</code> that implements <code>Supplier&lt;List&lt;Document&gt;&gt;</code></p>
+</li>
+<li>
+<p><code>DocumentTransformer</code> that implements <code>Function&lt;List&lt;Document&gt;, List&lt;Document&gt;&gt;</code></p>
+</li>
+<li>
+<p><code>DocumentWriter</code> that implements <code>Consumer&lt;List&lt;Document&gt;&gt;</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The <code>Document</code> class content is created from PDFs, text files and other document types with the help of <code>DocumentReader</code>.</p>
+</div>
+<div class="paragraph">
+<p>To construct a simple ETL pipeline, you can chain together an instance of each type.</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./ETL_files/etl-pipeline.jpg" alt="etl pipeline">
+</div>
+</div>
+<div class="paragraph">
+<p>Let’s say we have the following instances of those three ETL types</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>PagePdfDocumentReader</code> an implementation of <code>DocumentReader</code></p>
+</li>
+<li>
+<p><code>TokenTextSplitter</code> an implementation of <code>DocumentTransformer</code></p>
+</li>
+<li>
+<p><code>VectorStore</code> an implementation of <code>DocumentWriter</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>To perform the basic loading of data into a Vector Database for use with the Retrieval Augmented Generation pattern, use the following code in Java function style syntax.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">vectorStore.accept(tokenTextSplitter.apply(pdfReader.get()));</code><div class="source-toolbox"><button class="copy-button" title="Copy to clipboard"><span class="copy-toast">Copied!</span></button></div></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Alternatively, you can use method names that are more naturally expressive for the domain</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">vectorStore.write(tokenTextSplitter.split(pdfReader.read()));</code><div class="source-toolbox"><button class="copy-button" title="Copy to clipboard"><span class="copy-toast">Copied!</span></button></div></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_etl_interfaces"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_etl_interfaces"></a>ETL Interfaces</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The ETL pipeline is composed of the following interfaces and implementations.
+Detailed ETL class diagram is shown in the <a href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#etl-class-diagram">ETL Class Diagram</a> section.</p>
+</div>
+<div class="sect2">
+<h3 id="_documentreader"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_documentreader"></a>DocumentReader</h3>
+<div class="paragraph">
+<p>Provides a source of documents from diverse origins.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">DocumentReader</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Supplier</span>&lt;<span class="hljs-title">List</span>&lt;<span class="hljs-title">Document</span>&gt;&gt; </span>{
+
+    <span class="hljs-function"><span class="hljs-keyword">default</span> List&lt;Document&gt; <span class="hljs-title">read</span><span class="hljs-params">()</span> </span>{
+		<span class="hljs-keyword">return</span> get();
+	}
+}</code><div class="source-toolbox"><button class="copy-button" title="Copy to clipboard"><span class="copy-toast">Copied!</span></button></div></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_documenttransformer"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_documenttransformer"></a>DocumentTransformer</h3>
+<div class="paragraph">
+<p>Transforms a batch of documents as part of the processing workflow.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">DocumentTransformer</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Function</span>&lt;<span class="hljs-title">List</span>&lt;<span class="hljs-title">Document</span>&gt;, <span class="hljs-title">List</span>&lt;<span class="hljs-title">Document</span>&gt;&gt; </span>{
+
+    <span class="hljs-function"><span class="hljs-keyword">default</span> List&lt;Document&gt; <span class="hljs-title">transform</span><span class="hljs-params">(List&lt;Document&gt; transform)</span> </span>{
+		<span class="hljs-keyword">return</span> apply(transform);
+	}
+}</code><div class="source-toolbox"><button class="copy-button" title="Copy to clipboard"><span class="copy-toast">Copied!</span></button></div></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_documentwriter"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_documentwriter"></a>DocumentWriter</h3>
+<div class="paragraph">
+<p>Manages the final stage of the ETL process, preparing documents for storage.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">DocumentWriter</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Consumer</span>&lt;<span class="hljs-title">List</span>&lt;<span class="hljs-title">Document</span>&gt;&gt; </span>{
+
+    <span class="hljs-function"><span class="hljs-keyword">default</span> <span class="hljs-keyword">void</span> <span class="hljs-title">write</span><span class="hljs-params">(List&lt;Document&gt; documents)</span> </span>{
+		accept(documents);
+	}
+}</code><div class="source-toolbox"><button class="copy-button" title="Copy to clipboard"><span class="copy-toast">Copied!</span></button></div></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="etl-class-diagram"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#etl-class-diagram"></a>ETL Class Diagram</h3>
+<div class="paragraph">
+<p>The following class diagram illustrates the ETL interfaces and implementations.</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./ETL_files/etl-class-diagram.jpg" alt="etl class diagram">
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_documentreaders"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_documentreaders"></a>DocumentReaders</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_json"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_json"></a>JSON</h3>
+<div class="paragraph">
+<p>The <code>JsonReader</code> processes JSON documents, converting them into a list of <code>Document</code> objects.</p>
+</div>
+<div class="sect3">
+<h4 id="_example"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_example"></a>Example</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java"><span class="hljs-meta">@Component</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyJsonReader</span> </span>{
+
+	<span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> Resource resource;
+
+    MyJsonReader(<span class="hljs-meta">@Value</span>(<span class="hljs-string">"classpath:bikes.json"</span>) Resource resource) {
+        <span class="hljs-keyword">this</span>.resource = resource;
+    }
+
+	<span class="hljs-function">List&lt;Document&gt; <span class="hljs-title">loadJsonAsDocuments</span><span class="hljs-params">()</span> </span>{
+        JsonReader jsonReader = <span class="hljs-keyword">new</span> JsonReader(<span class="hljs-keyword">this</span>.resource, <span class="hljs-string">"description"</span>, <span class="hljs-string">"content"</span>);
+        <span class="hljs-keyword">return</span> jsonReader.get();
+	}
+}</code><div class="source-toolbox"><button class="copy-button" title="Copy to clipboard"><span class="copy-toast">Copied!</span></button></div></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_constructor_options"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_constructor_options"></a>Constructor Options</h4>
+<div class="paragraph">
+<p>The <code>JsonReader</code> provides several constructor options:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>JsonReader(Resource resource)</code></p>
+</li>
+<li>
+<p><code>JsonReader(Resource resource, String…​ jsonKeysToUse)</code></p>
+</li>
+<li>
+<p><code>JsonReader(Resource resource, JsonMetadataGenerator jsonMetadataGenerator, String…​ jsonKeysToUse)</code></p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_parameters"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_parameters"></a>Parameters</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><code>resource</code>: A Spring <code>Resource</code> object pointing to the JSON file.</p>
+</li>
+<li>
+<p><code>jsonKeysToUse</code>: An array of keys from the JSON that should be used as the text content in the resulting <code>Document</code> objects.</p>
+</li>
+<li>
+<p><code>jsonMetadataGenerator</code>: An optional <code>JsonMetadataGenerator</code> to create metadata for each <code>Document</code>.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_behavior"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_behavior"></a>Behavior</h4>
+<div class="paragraph">
+<p>The <code>JsonReader</code> processes JSON content as follows:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>It can handle both JSON arrays and single JSON objects.</p>
+</li>
+<li>
+<p>For each JSON object (either in an array or a single object):</p>
+<div class="ulist">
+<ul>
+<li>
+<p>It extracts the content based on the specified <code>jsonKeysToUse</code>.</p>
+</li>
+<li>
+<p>If no keys are specified, it uses the entire JSON object as content.</p>
+</li>
+<li>
+<p>It generates metadata using the provided <code>JsonMetadataGenerator</code> (or an empty one if not provided).</p>
+</li>
+<li>
+<p>It creates a <code>Document</code> object with the extracted content and metadata.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_using_json_pointers"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_using_json_pointers"></a>Using JSON Pointers</h4>
+<div class="paragraph">
+<p>The <code>JsonReader</code> now supports retrieving specific parts of a JSON document using JSON Pointers. This feature allows you to easily extract nested data from complex JSON structures.</p>
+</div>
+<div class="sect4">
+<h5 id="_the_getstring_pointer_method"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_the_getstring_pointer_method"></a>The <code>get(String pointer)</code> method</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java"><span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;Document&gt; <span class="hljs-title">get</span><span class="hljs-params">(String pointer)</span></span></code><div class="source-toolbox"><button class="copy-button" title="Copy to clipboard"><span class="copy-toast">Copied!</span></button></div></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This method allows you to use a JSON Pointer to retrieve a specific part of the JSON document.</p>
+</div>
+<div class="sect5">
+<h6 id="_parameters_2"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_parameters_2"></a>Parameters</h6>
+<div class="ulist">
+<ul>
+<li>
+<p><code>pointer</code>: A JSON Pointer string (as defined in RFC 6901) to locate the desired element within the JSON structure.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_return_value"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_return_value"></a>Return Value</h6>
+<div class="ulist">
+<ul>
+<li>
+<p>Returns a <code>List&lt;Document&gt;</code> containing the documents parsed from the JSON element located by the pointer.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_behavior_2"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_behavior_2"></a>Behavior</h6>
+<div class="ulist">
+<ul>
+<li>
+<p>The method uses the provided JSON Pointer to navigate to a specific location in the JSON structure.</p>
+</li>
+<li>
+<p>If the pointer is valid and points to an existing element:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>For a JSON object: it returns a list with a single Document.</p>
+</li>
+<li>
+<p>For a JSON array: it returns a list of Documents, one for each element in the array.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>If the pointer is invalid or points to a non-existent element, it throws an <code>IllegalArgumentException</code>.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_example_2"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_example_2"></a>Example</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">JsonReader jsonReader = <span class="hljs-keyword">new</span> JsonReader(resource, <span class="hljs-string">"description"</span>);
+List&lt;Document&gt; documents = <span class="hljs-keyword">this</span>.jsonReader.get(<span class="hljs-string">"/store/books/0"</span>);</code><div class="source-toolbox"><button class="copy-button" title="Copy to clipboard"><span class="copy-toast">Copied!</span></button></div></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_example_json_structure"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_example_json_structure"></a>Example JSON Structure</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">[
+  {
+    <span class="hljs-attr">"id"</span>: <span class="hljs-number">1</span>,
+    <span class="hljs-attr">"brand"</span>: <span class="hljs-string">"Trek"</span>,
+    <span class="hljs-attr">"description"</span>: <span class="hljs-string">"A high-performance mountain bike for trail riding."</span>
+  },
+  {
+    <span class="hljs-attr">"id"</span>: <span class="hljs-number">2</span>,
+    <span class="hljs-attr">"brand"</span>: <span class="hljs-string">"Cannondale"</span>,
+    <span class="hljs-attr">"description"</span>: <span class="hljs-string">"An aerodynamic road bike for racing enthusiasts."</span>
+  }
+]</code><div class="source-toolbox"><button class="copy-button" title="Copy to clipboard"><span class="copy-toast">Copied!</span></button></div></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In this example, if the <code>JsonReader</code> is configured with <code>"description"</code> as the <code>jsonKeysToUse</code>, it will create <code>Document</code> objects where the content is the value of the "description" field for each bike in the array.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_notes"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_notes"></a>Notes</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>The <code>JsonReader</code> uses Jackson for JSON parsing.</p>
+</li>
+<li>
+<p>It can handle large JSON files efficiently by using streaming for arrays.</p>
+</li>
+<li>
+<p>If multiple keys are specified in <code>jsonKeysToUse</code>, the content will be a concatenation of the values for those keys.</p>
+</li>
+<li>
+<p>The reader is flexible and can be adapted to various JSON structures by customizing the <code>jsonKeysToUse</code> and <code>JsonMetadataGenerator</code>.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_text"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_text"></a>Text</h3>
+<div class="paragraph">
+<p>The <code>TextReader</code> processes plain text documents, converting them into a list of <code>Document</code> objects.</p>
+</div>
+<div class="sect3">
+<h4 id="_example_3"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_example_3"></a>Example</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java"><span class="hljs-meta">@Component</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyTextReader</span> </span>{
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> Resource resource;
+
+    MyTextReader(<span class="hljs-meta">@Value</span>(<span class="hljs-string">"classpath:text-source.txt"</span>) Resource resource) {
+        <span class="hljs-keyword">this</span>.resource = resource;
+    }
+
+	<span class="hljs-function">List&lt;Document&gt; <span class="hljs-title">loadText</span><span class="hljs-params">()</span> </span>{
+		TextReader textReader = <span class="hljs-keyword">new</span> TextReader(<span class="hljs-keyword">this</span>.resource);
+		textReader.getCustomMetadata().put(<span class="hljs-string">"filename"</span>, <span class="hljs-string">"text-source.txt"</span>);
+
+		<span class="hljs-keyword">return</span> textReader.read();
+    }
+}</code><div class="source-toolbox"><button class="copy-button" title="Copy to clipboard"><span class="copy-toast">Copied!</span></button></div></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_constructor_options_2"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_constructor_options_2"></a>Constructor Options</h4>
+<div class="paragraph">
+<p>The <code>TextReader</code> provides two constructor options:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>TextReader(String resourceUrl)</code></p>
+</li>
+<li>
+<p><code>TextReader(Resource resource)</code></p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_parameters_3"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_parameters_3"></a>Parameters</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><code>resourceUrl</code>: A string representing the URL of the resource to be read.</p>
+</li>
+<li>
+<p><code>resource</code>: A Spring <code>Resource</code> object pointing to the text file.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_configuration"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_configuration"></a>Configuration</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><code>setCharset(Charset charset)</code>: Sets the character set used for reading the text file. Default is UTF-8.</p>
+</li>
+<li>
+<p><code>getCustomMetadata()</code>: Returns a mutable map where you can add custom metadata for the documents.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_behavior_3"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_behavior_3"></a>Behavior</h4>
+<div class="paragraph">
+<p>The <code>TextReader</code> processes text content as follows:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>It reads the entire content of the text file into a single <code>Document</code> object.</p>
+</li>
+<li>
+<p>The content of the file becomes the content of the <code>Document</code>.</p>
+</li>
+<li>
+<p>Metadata is automatically added to the <code>Document</code>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>charset</code>: The character set used to read the file (default: "UTF-8").</p>
+</li>
+<li>
+<p><code>source</code>: The filename of the source text file.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Any custom metadata added via <code>getCustomMetadata()</code> is included in the <code>Document</code>.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_notes_2"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_notes_2"></a>Notes</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>The <code>TextReader</code> reads the entire file content into memory, so it may not be suitable for very large files.</p>
+</li>
+<li>
+<p>If you need to split the text into smaller chunks, you can use a text splitter like <code>TokenTextSplitter</code> after reading the document:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">List&lt;Document&gt; documents = textReader.get();
+List&lt;Document&gt; splitDocuments = <span class="hljs-keyword">new</span> TokenTextSplitter().apply(<span class="hljs-keyword">this</span>.documents);</code><div class="source-toolbox"><button class="copy-button" title="Copy to clipboard"><span class="copy-toast">Copied!</span></button></div></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The reader uses Spring’s <code>Resource</code> abstraction, allowing it to read from various sources (classpath, file system, URL, etc.).</p>
+</li>
+<li>
+<p>Custom metadata can be added to all documents created by the reader using the <code>getCustomMetadata()</code> method.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_html_jsoup"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_html_jsoup"></a>HTML (JSoup)</h3>
+<div class="paragraph">
+<p>The <code>JsoupDocumentReader</code> processes HTML documents, converting them into a list of <code>Document</code> objects using the JSoup library.</p>
+</div>
+<div class="sect3">
+<h4 id="_example_4"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_example_4"></a>Example</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java"><span class="hljs-meta">@Component</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyHtmlReader</span> </span>{
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> Resource resource;
+
+    MyHtmlReader(<span class="hljs-meta">@Value</span>(<span class="hljs-string">"classpath:/my-page.html"</span>) Resource resource) {
+        <span class="hljs-keyword">this</span>.resource = resource;
+    }
+
+    <span class="hljs-function">List&lt;Document&gt; <span class="hljs-title">loadHtml</span><span class="hljs-params">()</span> </span>{
+        JsoupDocumentReaderConfig config = JsoupDocumentReaderConfig.builder()
+            .selector(<span class="hljs-string">"article p"</span>) <span class="hljs-comment">// Extract paragraphs within &lt;article&gt; tags</span>
+            .charset(<span class="hljs-string">"ISO-8859-1"</span>)  <span class="hljs-comment">// Use ISO-8859-1 encoding</span>
+            .includeLinkUrls(<span class="hljs-keyword">true</span>) <span class="hljs-comment">// Include link URLs in metadata</span>
+            .metadataTags(List.of(<span class="hljs-string">"author"</span>, <span class="hljs-string">"date"</span>)) <span class="hljs-comment">// Extract author and date meta tags</span>
+            .additionalMetadata(<span class="hljs-string">"source"</span>, <span class="hljs-string">"my-page.html"</span>) <span class="hljs-comment">// Add custom metadata</span>
+            .build();
+
+        JsoupDocumentReader reader = <span class="hljs-keyword">new</span> JsoupDocumentReader(<span class="hljs-keyword">this</span>.resource, config);
+        <span class="hljs-keyword">return</span> reader.get();
+    }
+}</code><div class="source-toolbox"><button class="copy-button" title="Copy to clipboard"><span class="copy-toast">Copied!</span></button></div></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>JsoupDocumentReaderConfig</code> allows you to customize the behavior of the <code>JsoupDocumentReader</code>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>charset</code>:  Specifies the character encoding of the HTML document (defaults to "UTF-8").</p>
+</li>
+<li>
+<p><code>selector</code>:  A JSoup CSS selector to specify which elements to extract text from (defaults to "body").</p>
+</li>
+<li>
+<p><code>separator</code>:  The string used to join text from multiple selected elements (defaults to "\n").</p>
+</li>
+<li>
+<p><code>allElements</code>:  If <code>true</code>, extracts all text from the <code>&lt;body&gt;</code> element, ignoring the <code>selector</code> (defaults to <code>false</code>).</p>
+</li>
+<li>
+<p><code>groupByElement</code>: If <code>true</code>, creates a separate <code>Document</code> for each element matched by the <code>selector</code> (defaults to <code>false</code>).</p>
+</li>
+<li>
+<p><code>includeLinkUrls</code>:  If <code>true</code>, extracts absolute link URLs and adds them to the metadata (defaults to <code>false</code>).</p>
+</li>
+<li>
+<p><code>metadataTags</code>:  A list of <code>&lt;meta&gt;</code> tag names to extract content from (defaults to <code>["description", "keywords"]</code>).</p>
+</li>
+<li>
+<p><code>additionalMetadata</code>:  Allows you to add custom metadata to all created <code>Document</code> objects.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_sample_document_my_page_html"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_sample_document_my_page_html"></a>Sample Document: my-page.html</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-html hljs xml" data-lang="html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">"en"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">"UTF-8"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>My Web Page<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"description"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"A sample web page for Spring AI"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"keywords"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"spring, ai, html, example"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"author"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"John Doe"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"date"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"2024-01-15"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"style.css"</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">header</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Welcome to My Page<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">header</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">nav</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/"</span>&gt;</span>Home<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/about"</span>&gt;</span>About<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">nav</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">article</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>Main Content<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>This is the main content of my web page.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>It contains multiple paragraphs.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://www.example.com"</span>&gt;</span>External Link<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">article</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">footer</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span><span class="hljs-symbol">&amp;copy;</span> 2024 John Doe<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">footer</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></code><div class="source-toolbox"><button class="copy-button" title="Copy to clipboard"><span class="copy-toast">Copied!</span></button></div></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Behavior:</p>
+</div>
+<div class="paragraph">
+<p>The <code>JsoupDocumentReader</code> processes the HTML content and creates <code>Document</code> objects based on the configuration:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The <code>selector</code> determines which elements are used for text extraction.</p>
+</li>
+<li>
+<p>If <code>allElements</code> is <code>true</code>, all text within the <code>&lt;body&gt;</code> is extracted into a single <code>Document</code>.</p>
+</li>
+<li>
+<p>If <code>groupByElement</code> is <code>true</code>, each element matching the <code>selector</code> creates a separate <code>Document</code>.</p>
+</li>
+<li>
+<p>If neither <code>allElements</code> nor <code>groupByElement</code> is <code>true</code>, text from all elements matching the <code>selector</code> is joined using the <code>separator</code>.</p>
+</li>
+<li>
+<p>The document title, content from specified <code>&lt;meta&gt;</code> tags, and (optionally) link URLs are added to the <code>Document</code> metadata.</p>
+</li>
+<li>
+<p>The base URI, for resolving relative links, will be extracted from URL resources.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The reader preserves the text content of the selected elements, but removes any HTML tags within them.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_markdown"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_markdown"></a>Markdown</h3>
+<div class="paragraph">
+<p>The <code>MarkdownDocumentReader</code> processes Markdown documents, converting them into a list of <code>Document</code> objects.</p>
+</div>
+<div class="sect3">
+<h4 id="_example_5"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_example_5"></a>Example</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java"><span class="hljs-meta">@Component</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyMarkdownReader</span> </span>{
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> Resource resource;
+
+    MyMarkdownReader(<span class="hljs-meta">@Value</span>(<span class="hljs-string">"classpath:code.md"</span>) Resource resource) {
+        <span class="hljs-keyword">this</span>.resource = resource;
+    }
+
+    <span class="hljs-function">List&lt;Document&gt; <span class="hljs-title">loadMarkdown</span><span class="hljs-params">()</span> </span>{
+        MarkdownDocumentReaderConfig config = MarkdownDocumentReaderConfig.builder()
+            .withHorizontalRuleCreateDocument(<span class="hljs-keyword">true</span>)
+            .withIncludeCodeBlock(<span class="hljs-keyword">false</span>)
+            .withIncludeBlockquote(<span class="hljs-keyword">false</span>)
+            .withAdditionalMetadata(<span class="hljs-string">"filename"</span>, <span class="hljs-string">"code.md"</span>)
+            .build();
+
+        MarkdownDocumentReader reader = <span class="hljs-keyword">new</span> MarkdownDocumentReader(<span class="hljs-keyword">this</span>.resource, config);
+        <span class="hljs-keyword">return</span> reader.get();
+    }
+}</code><div class="source-toolbox"><button class="copy-button" title="Copy to clipboard"><span class="copy-toast">Copied!</span></button></div></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>MarkdownDocumentReaderConfig</code> allows you to customize the behavior of the MarkdownDocumentReader:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>horizontalRuleCreateDocument</code>: When set to <code>true</code>, horizontal rules in the Markdown will create new <code>Document</code> objects.</p>
+</li>
+<li>
+<p><code>includeCodeBlock</code>: When set to <code>true</code>, code blocks will be included in the same <code>Document</code> as the surrounding text. When <code>false</code>, code blocks create separate <code>Document</code> objects.</p>
+</li>
+<li>
+<p><code>includeBlockquote</code>: When set to <code>true</code>, blockquotes will be included in the same <code>Document</code> as the surrounding text. When <code>false</code>, blockquotes create separate <code>Document</code> objects.</p>
+</li>
+<li>
+<p><code>additionalMetadata</code>: Allows you to add custom metadata to all created <code>Document</code> objects.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_sample_document_code_md"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_sample_document_code_md"></a>Sample Document: code.md</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-markdown hljs" data-lang="markdown">This is a Java sample application:
+
+<span class="hljs-code">```java
+package com.example.demo;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class DemoApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(DemoApplication.class, args);
+    }
+}
+```</span>
+
+Markdown also provides the possibility to <span class="hljs-code">`use inline code formatting throughout`</span> the entire sentence.
+
+---
+
+Another possibility is to set block code without specific highlighting:
+
+<span class="hljs-code">```
+./mvnw spring-javaformat:apply
+```</span></code><div class="source-toolbox"><button class="copy-button" title="Copy to clipboard"><span class="copy-toast">Copied!</span></button></div></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Behavior: The MarkdownDocumentReader processes the Markdown content and creates Document objects based on the configuration:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Headers become metadata in the Document objects.</p>
+</li>
+<li>
+<p>Paragraphs become the content of Document objects.</p>
+</li>
+<li>
+<p>Code blocks can be separated into their own Document objects or included with surrounding text.</p>
+</li>
+<li>
+<p>Blockquotes can be separated into their own Document objects or included with surrounding text.</p>
+</li>
+<li>
+<p>Horizontal rules can be used to split the content into separate Document objects.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The reader preserves formatting like inline code, lists, and text styling within the content of the Document objects.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_pdf_page"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_pdf_page"></a>PDF Page</h3>
+<div class="paragraph">
+<p>The <code>PagePdfDocumentReader</code> uses Apache PdfBox library to parse PDF documents</p>
+</div>
+<div class="paragraph">
+<p>Add the dependency to your project using Maven or Gradle.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.ai<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-ai-pdf-document-reader<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span></code><div class="source-toolbox"><button class="copy-button" title="Copy to clipboard"><span class="copy-toast">Copied!</span></button></div></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>or to your Gradle <code>build.gradle</code> build file.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">dependencies {
+    implementation <span class="hljs-string">'org.springframework.ai:spring-ai-pdf-document-reader'</span>
+}</code><div class="source-toolbox"><button class="copy-button" title="Copy to clipboard"><span class="copy-toast">Copied!</span></button></div></pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_example_6"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_example_6"></a>Example</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java"><span class="hljs-meta">@Component</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyPagePdfDocumentReader</span> </span>{
+
+	<span class="hljs-function">List&lt;Document&gt; <span class="hljs-title">getDocsFromPdf</span><span class="hljs-params">()</span> </span>{
+
+		PagePdfDocumentReader pdfReader = <span class="hljs-keyword">new</span> PagePdfDocumentReader(<span class="hljs-string">"classpath:/sample1.pdf"</span>,
+				PdfDocumentReaderConfig.builder()
+					.withPageTopMargin(<span class="hljs-number">0</span>)
+					.withPageExtractedTextFormatter(ExtractedTextFormatter.builder()
+						.withNumberOfTopTextLinesToDelete(<span class="hljs-number">0</span>)
+						.build())
+					.withPagesPerDocument(<span class="hljs-number">1</span>)
+					.build());
+
+		<span class="hljs-keyword">return</span> pdfReader.read();
+    }
+
+}</code><div class="source-toolbox"><button class="copy-button" title="Copy to clipboard"><span class="copy-toast">Copied!</span></button></div></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_pdf_paragraph"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_pdf_paragraph"></a>PDF Paragraph</h3>
+<div class="paragraph">
+<p>The <code>ParagraphPdfDocumentReader</code> uses the PDF catalog (e.g. TOC) information to split the input PDF into text paragraphs and output a single <code>Document</code> per paragraph.
+NOTE: Not all PDF documents contain the PDF catalog.</p>
+</div>
+<div class="sect3">
+<h4 id="_dependencies"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_dependencies"></a>Dependencies</h4>
+<div class="paragraph">
+<p>Add the dependency to your project using Maven or Gradle.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.ai<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-ai-pdf-document-reader<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span></code><div class="source-toolbox"><button class="copy-button" title="Copy to clipboard"><span class="copy-toast">Copied!</span></button></div></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>or to your Gradle <code>build.gradle</code> build file.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">dependencies {
+    implementation <span class="hljs-string">'org.springframework.ai:spring-ai-pdf-document-reader'</span>
+}</code><div class="source-toolbox"><button class="copy-button" title="Copy to clipboard"><span class="copy-toast">Copied!</span></button></div></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_example_7"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_example_7"></a>Example</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java"><span class="hljs-meta">@Component</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyPagePdfDocumentReader</span> </span>{
+
+	<span class="hljs-function">List&lt;Document&gt; <span class="hljs-title">getDocsFromPdfWithCatalog</span><span class="hljs-params">()</span> </span>{
+
+        ParagraphPdfDocumentReader pdfReader = <span class="hljs-keyword">new</span> ParagraphPdfDocumentReader(<span class="hljs-string">"classpath:/sample1.pdf"</span>,
+                PdfDocumentReaderConfig.builder()
+                    .withPageTopMargin(<span class="hljs-number">0</span>)
+                    .withPageExtractedTextFormatter(ExtractedTextFormatter.builder()
+                        .withNumberOfTopTextLinesToDelete(<span class="hljs-number">0</span>)
+                        .build())
+                    .withPagesPerDocument(<span class="hljs-number">1</span>)
+                    .build());
+
+	    <span class="hljs-keyword">return</span> pdfReader.read();
+    }
+}</code><div class="source-toolbox"><button class="copy-button" title="Copy to clipboard"><span class="copy-toast">Copied!</span></button></div></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_tika_docx_pptx_html"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_tika_docx_pptx_html"></a>Tika (DOCX, PPTX, HTML…​)</h3>
+<div class="paragraph">
+<p>The <code>TikaDocumentReader</code> uses Apache Tika to extract text from a variety of document formats, such as PDF, DOC/DOCX, PPT/PPTX, and HTML. For a comprehensive list of supported formats, refer to the  <a href="https://tika.apache.org/2.9.0/formats.html" class="external" target="_blank">Tika documentation</a>.</p>
+</div>
+<div class="sect3">
+<h4 id="_dependencies_2"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_dependencies_2"></a>Dependencies</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.ai<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-ai-tika-document-reader<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span></code><div class="source-toolbox"><button class="copy-button" title="Copy to clipboard"><span class="copy-toast">Copied!</span></button></div></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>or to your Gradle <code>build.gradle</code> build file.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">dependencies {
+    implementation <span class="hljs-string">'org.springframework.ai:spring-ai-tika-document-reader'</span>
+}</code><div class="source-toolbox"><button class="copy-button" title="Copy to clipboard"><span class="copy-toast">Copied!</span></button></div></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_example_8"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_example_8"></a>Example</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java"><span class="hljs-meta">@Component</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyTikaDocumentReader</span> </span>{
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> Resource resource;
+
+    MyTikaDocumentReader(<span class="hljs-meta">@Value</span>(<span class="hljs-string">"classpath:/word-sample.docx"</span>)
+                            Resource resource) {
+        <span class="hljs-keyword">this</span>.resource = resource;
+    }
+
+    <span class="hljs-function">List&lt;Document&gt; <span class="hljs-title">loadText</span><span class="hljs-params">()</span> </span>{
+        TikaDocumentReader tikaDocumentReader = <span class="hljs-keyword">new</span> TikaDocumentReader(<span class="hljs-keyword">this</span>.resource);
+        <span class="hljs-keyword">return</span> tikaDocumentReader.read();
+    }
+}</code><div class="source-toolbox"><button class="copy-button" title="Copy to clipboard"><span class="copy-toast">Copied!</span></button></div></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_transformers"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_transformers"></a>Transformers</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_textsplitter"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_textsplitter"></a>TextSplitter</h3>
+<div class="paragraph">
+<p>The <code>TextSplitter</code> an abstract base class that helps divides documents to fit the AI model’s context window.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_tokentextsplitter"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_tokentextsplitter"></a>TokenTextSplitter</h3>
+<div class="paragraph">
+<p>The <code>TokenTextSplitter</code> is an implementation of <code>TextSplitter</code> that splits text into chunks based on token count, using the CL100K_BASE encoding.</p>
+</div>
+<div class="sect3">
+<h4 id="_usage"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_usage"></a>Usage</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java"><span class="hljs-meta">@Component</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyTokenTextSplitter</span> </span>{
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;Document&gt; <span class="hljs-title">splitDocuments</span><span class="hljs-params">(List&lt;Document&gt; documents)</span> </span>{
+        TokenTextSplitter splitter = <span class="hljs-keyword">new</span> TokenTextSplitter();
+        <span class="hljs-keyword">return</span> splitter.apply(documents);
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;Document&gt; <span class="hljs-title">splitCustomized</span><span class="hljs-params">(List&lt;Document&gt; documents)</span> </span>{
+        TokenTextSplitter splitter = <span class="hljs-keyword">new</span> TokenTextSplitter(<span class="hljs-number">1000</span>, <span class="hljs-number">400</span>, <span class="hljs-number">10</span>, <span class="hljs-number">5000</span>, <span class="hljs-keyword">true</span>);
+        <span class="hljs-keyword">return</span> splitter.apply(documents);
+    }
+}</code><div class="source-toolbox"><button class="copy-button" title="Copy to clipboard"><span class="copy-toast">Copied!</span></button></div></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_constructor_options_3"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_constructor_options_3"></a>Constructor Options</h4>
+<div class="paragraph">
+<p>The <code>TokenTextSplitter</code> provides two constructor options:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>TokenTextSplitter()</code>: Creates a splitter with default settings.</p>
+</li>
+<li>
+<p><code>TokenTextSplitter(int defaultChunkSize, int minChunkSizeChars, int minChunkLengthToEmbed, int maxNumChunks, boolean keepSeparator)</code></p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_parameters_4"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_parameters_4"></a>Parameters</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><code>defaultChunkSize</code>: The target size of each text chunk in tokens (default: 800).</p>
+</li>
+<li>
+<p><code>minChunkSizeChars</code>: The minimum size of each text chunk in characters (default: 350).</p>
+</li>
+<li>
+<p><code>minChunkLengthToEmbed</code>: The minimum length of a chunk to be included (default: 5).</p>
+</li>
+<li>
+<p><code>maxNumChunks</code>: The maximum number of chunks to generate from a text (default: 10000).</p>
+</li>
+<li>
+<p><code>keepSeparator</code>: Whether to keep separators (like newlines) in the chunks (default: true).</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_behavior_4"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_behavior_4"></a>Behavior</h4>
+<div class="paragraph">
+<p>The <code>TokenTextSplitter</code> processes text content as follows:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>It encodes the input text into tokens using the CL100K_BASE encoding.</p>
+</li>
+<li>
+<p>It splits the encoded text into chunks based on the <code>defaultChunkSize</code>.</p>
+</li>
+<li>
+<p>For each chunk:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>It decodes the chunk back into text.</p>
+</li>
+<li>
+<p>It attempts to find a suitable break point (period, question mark, exclamation mark, or newline) after the <code>minChunkSizeChars</code>.</p>
+</li>
+<li>
+<p>If a break point is found, it truncates the chunk at that point.</p>
+</li>
+<li>
+<p>It trims the chunk and optionally removes newline characters based on the <code>keepSeparator</code> setting.</p>
+</li>
+<li>
+<p>If the resulting chunk is longer than <code>minChunkLengthToEmbed</code>, it’s added to the output.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>This process continues until all tokens are processed or <code>maxNumChunks</code> is reached.</p>
+</li>
+<li>
+<p>Any remaining text is added as a final chunk if it’s longer than <code>minChunkLengthToEmbed</code>.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_example_9"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_example_9"></a>Example</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">Document doc1 = <span class="hljs-keyword">new</span> Document(<span class="hljs-string">"This is a long piece of text that needs to be split into smaller chunks for processing."</span>,
+        Map.of(<span class="hljs-string">"source"</span>, <span class="hljs-string">"example.txt"</span>));
+Document doc2 = <span class="hljs-keyword">new</span> Document(<span class="hljs-string">"Another document with content that will be split based on token count."</span>,
+        Map.of(<span class="hljs-string">"source"</span>, <span class="hljs-string">"example2.txt"</span>));
+
+TokenTextSplitter splitter = <span class="hljs-keyword">new</span> TokenTextSplitter();
+List&lt;Document&gt; splitDocuments = <span class="hljs-keyword">this</span>.splitter.apply(List.of(<span class="hljs-keyword">this</span>.doc1, <span class="hljs-keyword">this</span>.doc2));
+
+<span class="hljs-keyword">for</span> (Document doc : splitDocuments) {
+    System.out.println(<span class="hljs-string">"Chunk: "</span> + doc.getContent());
+    System.out.println(<span class="hljs-string">"Metadata: "</span> + doc.getMetadata());
+}</code><div class="source-toolbox"><button class="copy-button" title="Copy to clipboard"><span class="copy-toast">Copied!</span></button></div></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_notes_3"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_notes_3"></a>Notes</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>The <code>TokenTextSplitter</code> uses the CL100K_BASE encoding from the <code>jtokkit</code> library, which is compatible with newer OpenAI models.</p>
+</li>
+<li>
+<p>The splitter attempts to create semantically meaningful chunks by breaking at sentence boundaries where possible.</p>
+</li>
+<li>
+<p>Metadata from the original documents is preserved and copied to all chunks derived from that document.</p>
+</li>
+<li>
+<p>The content formatter (if set) from the original document is also copied to the derived chunks if <code>copyContentFormatter</code> is set to <code>true</code> (default behavior).</p>
+</li>
+<li>
+<p>This splitter is particularly useful for preparing text for large language models that have token limits, ensuring that each chunk is within the model’s processing capacity.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_contentformattransformer"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_contentformattransformer"></a>ContentFormatTransformer</h3>
+<div class="paragraph">
+<p>Ensures uniform content formats across all documents.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_keywordmetadataenricher"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_keywordmetadataenricher"></a>KeywordMetadataEnricher</h3>
+<div class="paragraph">
+<p>The <code>KeywordMetadataEnricher</code> is a <code>DocumentTransformer</code> that uses a generative AI model to extract keywords from document content and add them as metadata.</p>
+</div>
+<div class="sect3">
+<h4 id="_usage_2"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_usage_2"></a>Usage</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java"><span class="hljs-meta">@Component</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyKeywordEnricher</span> </span>{
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> ChatModel chatModel;
+
+    MyKeywordEnricher(ChatModel chatModel) {
+        <span class="hljs-keyword">this</span>.chatModel = chatModel;
+    }
+
+    <span class="hljs-function">List&lt;Document&gt; <span class="hljs-title">enrichDocuments</span><span class="hljs-params">(List&lt;Document&gt; documents)</span> </span>{
+        KeywordMetadataEnricher enricher = <span class="hljs-keyword">new</span> KeywordMetadataEnricher(<span class="hljs-keyword">this</span>.chatModel, <span class="hljs-number">5</span>);
+        <span class="hljs-keyword">return</span> enricher.apply(documents);
+    }
+}</code><div class="source-toolbox"><button class="copy-button" title="Copy to clipboard"><span class="copy-toast">Copied!</span></button></div></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_constructor"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_constructor"></a>Constructor</h4>
+<div class="paragraph">
+<p>The <code>KeywordMetadataEnricher</code> constructor takes two parameters:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>ChatModel chatModel</code>: The AI model used for generating keywords.</p>
+</li>
+<li>
+<p><code>int keywordCount</code>: The number of keywords to extract for each document.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_behavior_5"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_behavior_5"></a>Behavior</h4>
+<div class="paragraph">
+<p>The <code>KeywordMetadataEnricher</code> processes documents as follows:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>For each input document, it creates a prompt using the document’s content.</p>
+</li>
+<li>
+<p>It sends this prompt to the provided <code>ChatModel</code> to generate keywords.</p>
+</li>
+<li>
+<p>The generated keywords are added to the document’s metadata under the key "excerpt_keywords".</p>
+</li>
+<li>
+<p>The enriched documents are returned.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_customization"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_customization"></a>Customization</h4>
+<div class="paragraph">
+<p>The keyword extraction prompt can be customized by modifying the <code>KEYWORDS_TEMPLATE</code> constant in the class. The default template is:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">\{context_str}. Give %s unique keywords <span class="hljs-keyword">for</span> <span class="hljs-keyword">this</span> document. Format as comma separated. Keywords:</code><div class="source-toolbox"><button class="copy-button" title="Copy to clipboard"><span class="copy-toast">Copied!</span></button></div></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Where <code>{context_str}</code> is replaced with the document content, and <code>%s</code> is replaced with the specified keyword count.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_example_10"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_example_10"></a>Example</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">ChatModel chatModel = <span class="hljs-comment">// initialize your chat model</span>
+KeywordMetadataEnricher enricher = <span class="hljs-keyword">new</span> KeywordMetadataEnricher(chatModel, <span class="hljs-number">5</span>);
+
+Document doc = <span class="hljs-keyword">new</span> Document(<span class="hljs-string">"This is a document about artificial intelligence and its applications in modern technology."</span>);
+
+List&lt;Document&gt; enrichedDocs = enricher.apply(List.of(<span class="hljs-keyword">this</span>.doc));
+
+Document enrichedDoc = <span class="hljs-keyword">this</span>.enrichedDocs.get(<span class="hljs-number">0</span>);
+String keywords = (String) <span class="hljs-keyword">this</span>.enrichedDoc.getMetadata().get(<span class="hljs-string">"excerpt_keywords"</span>);
+System.out.println(<span class="hljs-string">"Extracted keywords: "</span> + keywords);</code><div class="source-toolbox"><button class="copy-button" title="Copy to clipboard"><span class="copy-toast">Copied!</span></button></div></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_notes_4"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_notes_4"></a>Notes</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>The <code>KeywordMetadataEnricher</code> requires a functioning <code>ChatModel</code> to generate keywords.</p>
+</li>
+<li>
+<p>The keyword count must be 1 or greater.</p>
+</li>
+<li>
+<p>The enricher adds the "excerpt_keywords" metadata field to each processed document.</p>
+</li>
+<li>
+<p>The generated keywords are returned as a comma-separated string.</p>
+</li>
+<li>
+<p>This enricher is particularly useful for improving document searchability and for generating tags or categories for documents.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_summarymetadataenricher"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_summarymetadataenricher"></a>SummaryMetadataEnricher</h3>
+<div class="paragraph">
+<p>The <code>SummaryMetadataEnricher</code> is a <code>DocumentTransformer</code> that uses a generative AI model to create summaries for documents and add them as metadata. It can generate summaries for the current document, as well as adjacent documents (previous and next).</p>
+</div>
+<div class="sect3">
+<h4 id="_usage_3"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_usage_3"></a>Usage</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java"><span class="hljs-meta">@Configuration</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">EnricherConfig</span> </span>{
+
+    <span class="hljs-meta">@Bean</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> SummaryMetadataEnricher <span class="hljs-title">summaryMetadata</span><span class="hljs-params">(OpenAiChatModel aiClient)</span> </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> SummaryMetadataEnricher(aiClient,
+            List.of(SummaryType.PREVIOUS, SummaryType.CURRENT, SummaryType.NEXT));
+    }
+}
+
+<span class="hljs-meta">@Component</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MySummaryEnricher</span> </span>{
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> SummaryMetadataEnricher enricher;
+
+    MySummaryEnricher(SummaryMetadataEnricher enricher) {
+        <span class="hljs-keyword">this</span>.enricher = enricher;
+    }
+
+    <span class="hljs-function">List&lt;Document&gt; <span class="hljs-title">enrichDocuments</span><span class="hljs-params">(List&lt;Document&gt; documents)</span> </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.enricher.apply(documents);
+    }
+}</code><div class="source-toolbox"><button class="copy-button" title="Copy to clipboard"><span class="copy-toast">Copied!</span></button></div></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_constructor_2"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_constructor_2"></a>Constructor</h4>
+<div class="paragraph">
+<p>The <code>SummaryMetadataEnricher</code> provides two constructors:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>SummaryMetadataEnricher(ChatModel chatModel, List&lt;SummaryType&gt; summaryTypes)</code></p>
+</li>
+<li>
+<p><code>SummaryMetadataEnricher(ChatModel chatModel, List&lt;SummaryType&gt; summaryTypes, String summaryTemplate, MetadataMode metadataMode)</code></p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_parameters_5"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_parameters_5"></a>Parameters</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><code>chatModel</code>: The AI model used for generating summaries.</p>
+</li>
+<li>
+<p><code>summaryTypes</code>: A list of <code>SummaryType</code> enum values indicating which summaries to generate (PREVIOUS, CURRENT, NEXT).</p>
+</li>
+<li>
+<p><code>summaryTemplate</code>: A custom template for summary generation (optional).</p>
+</li>
+<li>
+<p><code>metadataMode</code>: Specifies how to handle document metadata when generating summaries (optional).</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_behavior_6"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_behavior_6"></a>Behavior</h4>
+<div class="paragraph">
+<p>The <code>SummaryMetadataEnricher</code> processes documents as follows:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>For each input document, it creates a prompt using the document’s content and the specified summary template.</p>
+</li>
+<li>
+<p>It sends this prompt to the provided <code>ChatModel</code> to generate a summary.</p>
+</li>
+<li>
+<p>Depending on the specified <code>summaryTypes</code>, it adds the following metadata to each document:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>section_summary</code>: Summary of the current document.</p>
+</li>
+<li>
+<p><code>prev_section_summary</code>: Summary of the previous document (if available and requested).</p>
+</li>
+<li>
+<p><code>next_section_summary</code>: Summary of the next document (if available and requested).</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>The enriched documents are returned.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_customization_2"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_customization_2"></a>Customization</h4>
+<div class="paragraph">
+<p>The summary generation prompt can be customized by providing a custom <code>summaryTemplate</code>. The default template is:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java"><span class="hljs-string">""</span><span class="hljs-string">"
+Here is the content of the section:
+{context_str}
+
+Summarize the key topics and entities of the section.
+
+Summary:
+"</span><span class="hljs-string">""</span></code><div class="source-toolbox"><button class="copy-button" title="Copy to clipboard"><span class="copy-toast">Copied!</span></button></div></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_example_11"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_example_11"></a>Example</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">ChatModel chatModel = <span class="hljs-comment">// initialize your chat model</span>
+SummaryMetadataEnricher enricher = <span class="hljs-keyword">new</span> SummaryMetadataEnricher(chatModel,
+    List.of(SummaryType.PREVIOUS, SummaryType.CURRENT, SummaryType.NEXT));
+
+Document doc1 = <span class="hljs-keyword">new</span> Document(<span class="hljs-string">"Content of document 1"</span>);
+Document doc2 = <span class="hljs-keyword">new</span> Document(<span class="hljs-string">"Content of document 2"</span>);
+
+List&lt;Document&gt; enrichedDocs = enricher.apply(List.of(<span class="hljs-keyword">this</span>.doc1, <span class="hljs-keyword">this</span>.doc2));
+
+<span class="hljs-comment">// Check the metadata of the enriched documents</span>
+<span class="hljs-keyword">for</span> (Document doc : enrichedDocs) {
+    System.out.println(<span class="hljs-string">"Current summary: "</span> + doc.getMetadata().get(<span class="hljs-string">"section_summary"</span>));
+    System.out.println(<span class="hljs-string">"Previous summary: "</span> + doc.getMetadata().get(<span class="hljs-string">"prev_section_summary"</span>));
+    System.out.println(<span class="hljs-string">"Next summary: "</span> + doc.getMetadata().get(<span class="hljs-string">"next_section_summary"</span>));
+}</code><div class="source-toolbox"><button class="copy-button" title="Copy to clipboard"><span class="copy-toast">Copied!</span></button></div></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The provided example demonstrates the expected behavior:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>For a list of two documents, both documents receive a <code>section_summary</code>.</p>
+</li>
+<li>
+<p>The first document receives a <code>next_section_summary</code> but no <code>prev_section_summary</code>.</p>
+</li>
+<li>
+<p>The second document receives a <code>prev_section_summary</code> but no <code>next_section_summary</code>.</p>
+</li>
+<li>
+<p>The <code>section_summary</code> of the first document matches the <code>prev_section_summary</code> of the second document.</p>
+</li>
+<li>
+<p>The <code>next_section_summary</code> of the first document matches the <code>section_summary</code> of the second document.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_notes_5"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_notes_5"></a>Notes</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>The <code>SummaryMetadataEnricher</code> requires a functioning <code>ChatModel</code> to generate summaries.</p>
+</li>
+<li>
+<p>The enricher can handle document lists of any size, properly handling edge cases for the first and last documents.</p>
+</li>
+<li>
+<p>This enricher is particularly useful for creating context-aware summaries, allowing for better understanding of document relationships in a sequence.</p>
+</li>
+<li>
+<p>The <code>MetadataMode</code> parameter allows control over how existing metadata is incorporated into the summary generation process.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_writers"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_writers"></a>Writers</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_file"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_file"></a>File</h3>
+<div class="paragraph">
+<p>The <code>FileDocumentWriter</code> is a <code>DocumentWriter</code> implementation that writes the content of a list of <code>Document</code> objects into a file.</p>
+</div>
+<div class="sect3">
+<h4 id="_usage_4"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_usage_4"></a>Usage</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java"><span class="hljs-meta">@Component</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyDocumentWriter</span> </span>{
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">writeDocuments</span><span class="hljs-params">(List&lt;Document&gt; documents)</span> </span>{
+        FileDocumentWriter writer = <span class="hljs-keyword">new</span> FileDocumentWriter(<span class="hljs-string">"output.txt"</span>, <span class="hljs-keyword">true</span>, MetadataMode.ALL, <span class="hljs-keyword">false</span>);
+        writer.accept(documents);
+    }
+}</code><div class="source-toolbox"><button class="copy-button" title="Copy to clipboard"><span class="copy-toast">Copied!</span></button></div></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_constructors"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_constructors"></a>Constructors</h4>
+<div class="paragraph">
+<p>The <code>FileDocumentWriter</code> provides three constructors:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>FileDocumentWriter(String fileName)</code></p>
+</li>
+<li>
+<p><code>FileDocumentWriter(String fileName, boolean withDocumentMarkers)</code></p>
+</li>
+<li>
+<p><code>FileDocumentWriter(String fileName, boolean withDocumentMarkers, MetadataMode metadataMode, boolean append)</code></p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_parameters_6"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_parameters_6"></a>Parameters</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><code>fileName</code>: The name of the file to write the documents to.</p>
+</li>
+<li>
+<p><code>withDocumentMarkers</code>: Whether to include document markers in the output (default: false).</p>
+</li>
+<li>
+<p><code>metadataMode</code>: Specifies what document content to be written to the file (default: MetadataMode.NONE).</p>
+</li>
+<li>
+<p><code>append</code>: If true, data will be written to the end of the file rather than the beginning (default: false).</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_behavior_7"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_behavior_7"></a>Behavior</h4>
+<div class="paragraph">
+<p>The <code>FileDocumentWriter</code> processes documents as follows:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>It opens a FileWriter for the specified file name.</p>
+</li>
+<li>
+<p>For each document in the input list:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>If <code>withDocumentMarkers</code> is true, it writes a document marker including the document index and page numbers.</p>
+</li>
+<li>
+<p>It writes the formatted content of the document based on the specified <code>metadataMode</code>.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>The file is closed after all documents have been written.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_document_markers"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_document_markers"></a>Document Markers</h4>
+<div class="paragraph">
+<p>When <code>withDocumentMarkers</code> is set to true, the writer includes markers for each document in the following format:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">### Doc: [index], pages:[start_page_number,end_page_number]</code><div class="source-toolbox"><button class="copy-button" title="Copy to clipboard"><span class="copy-toast">Copied!</span></button></div></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_metadata_handling"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_metadata_handling"></a>Metadata Handling</h4>
+<div class="paragraph">
+<p>The writer uses two specific metadata keys:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>page_number</code>: Represents the starting page number of the document.</p>
+</li>
+<li>
+<p><code>end_page_number</code>: Represents the ending page number of the document.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>These are used when writing document markers.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_example_12"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_example_12"></a>Example</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">List&lt;Document&gt; documents = <span class="hljs-comment">// initialize your documents</span>
+FileDocumentWriter writer = <span class="hljs-keyword">new</span> FileDocumentWriter(<span class="hljs-string">"output.txt"</span>, <span class="hljs-keyword">true</span>, MetadataMode.ALL, <span class="hljs-keyword">true</span>);
+writer.accept(documents);</code><div class="source-toolbox"><button class="copy-button" title="Copy to clipboard"><span class="copy-toast">Copied!</span></button></div></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This will write all documents to "output.txt", including document markers, using all available metadata, and appending to the file if it already exists.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_notes_6"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_notes_6"></a>Notes</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>The writer uses <code>FileWriter</code>, so it writes text files with the default character encoding of the operating system.</p>
+</li>
+<li>
+<p>If an error occurs during writing, a <code>RuntimeException</code> is thrown with the original exception as its cause.</p>
+</li>
+<li>
+<p>The <code>metadataMode</code> parameter allows control over how existing metadata is incorporated into the written content.</p>
+</li>
+<li>
+<p>This writer is particularly useful for debugging or creating human-readable outputs of document collections.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_vectorstore"><a class="anchor" href="https://docs.spring.io/spring-ai/reference/1.0/api/etl-pipeline.html#_vectorstore"></a>VectorStore</h3>
+<div class="paragraph">
+<p>Provides integration with various vector stores.
+See <a href="https://docs.spring.io/spring-ai/reference/1.0/api/vectordbs.html" class="xref page">Vector DB Documentation</a> for a full listing.</p>
+</div>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="https://docs.spring.io/spring-ai/reference/1.0/api/retrieval-augmented-generation.html">Retrieval Augmented Generation (RAG)</a></span>
+  <span class="next"><a href="https://docs.spring.io/spring-ai/reference/1.0/api/structured-output-converter.html">Structured Output</a></span>
+</nav>
+</article>  </div>
+</main>
+<div class="modal micromodal-slide" id="modal-versions" aria-hidden="true">
+    <div class="modal__overlay" tabindex="-1" data-micromodal-close="">
+        <div class="modal__container" role="dialog" aria-modal="true">
+            <main class="modal__content" id="modal-versions-content">
+              <button data-micromodal-close="" class="modal-versions-close">
+                <svg width="28px" height="28px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><defs><style>.cls-1h{fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px;}</style></defs><title></title><g id="cross"><line class="cls-1h" x1="7" x2="25" y1="7" y2="25"></line><line class="cls-1h" x1="7" x2="25" y1="25" y2="7"></line></g></svg>
+              </button>
+              <div class="colset">
+                <div class="col-left">
+
+                  <ul class="nav-versions">
+                      <li class="component">
+                        <div>
+                          <a class="title" href="https://docs.spring.io/spring-ai/reference/index.html">Spring AI</a>
+                        </div>                        <div class="version-item">
+                          <div>
+                            <button class="version-toggle" type="button">
+                              <span></span>
+                              Preview
+                            </button>
+                          </div>
+                          <ul class="versions">
+  <li class="version">
+    <a href="https://docs.spring.io/spring-ai/reference/1.0/index.html">
+      1.0.0-M7
+    </a>
+  </li>
+</ul>                        </div>
+                        <div class="version-item">
+                          <div>
+                            <button class="version-toggle" type="button">
+                              <span></span>
+                              Snapshot
+                            </button>
+                          </div>
+                          <ul class="versions">
+  <li class="version">
+    <a href="https://docs.spring.io/spring-ai/reference/index.html">
+      1.0.0-SNAPSHOT
+    </a>
+  </li>
+</ul>                        </div>
+                        
+                      </li>
+                  </ul>
+                </div>
+                <div class="col-right">
+                  <ul class="projects">
+  <li>
+    Related Spring Documentation
+    <ul class="projects-list">
+        <li>
+<a href="https://docs.spring.io/spring-boot/">
+  Spring Boot
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-framework/reference/">
+  Spring Framework
+</a>
+</li>
+        <li>
+<a class="anchor"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+  Spring Cloud
+<ul>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-build/reference/">
+  Spring Cloud Build
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-bus/reference/">
+  Spring Cloud Bus
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-circuitbreaker/reference/">
+  Spring Cloud Circuit Breaker
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-commons/reference/">
+  Spring Cloud Commons
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-config/reference/">
+  Spring Cloud Config
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-consul/reference/">
+  Spring Cloud Consul
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-contract/reference/">
+  Spring Cloud Contract
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-function/reference/">
+  Spring Cloud Function
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-gateway/reference/">
+  Spring Cloud Gateway
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-kubernetes/reference/">
+  Spring Cloud Kubernetes
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-netflix/reference/">
+  Spring Cloud Netflix
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-openfeign/reference/">
+  Spring Cloud OpenFeign
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-stream/reference/">
+  Spring Cloud Stream
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-task/reference/">
+  Spring Cloud Task
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-vault/reference/">
+  Spring Cloud Vault
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-zookeeper/reference/">
+  Spring Cloud Zookeeper
+</a>
+</li>
+</ul>
+</li>
+        <li>
+<a class="anchor"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+  Spring Data
+<ul>
+    <li>
+<a href="https://docs.spring.io/spring-data/cassandra/reference/">
+  Spring Data Cassandra
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/commons/reference/">
+  Spring Data Commons
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/couchbase/reference/">
+  Spring Data Couchbase
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/elasticsearch/reference/">
+  Spring Data Elasticsearch
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/jpa/reference/">
+  Spring Data JPA
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/keyvalue/reference/">
+  Spring Data KeyValue
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/ldap/reference/">
+  Spring Data LDAP
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/mongodb/reference/">
+  Spring Data MongoDB
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/neo4j/reference/">
+  Spring Data Neo4j
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/redis/reference/">
+  Spring Data Redis
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/relational/reference/">
+  Spring Data JDBC &amp; R2DBC
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/rest/reference/">
+  Spring Data REST
+</a>
+</li>
+</ul>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-integration/reference/">
+  Spring Integration
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-batch/reference/">
+  Spring Batch
+</a>
+</li>
+        <li>
+<a class="anchor"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+<a href="https://docs.spring.io/spring-security/reference/">
+  Spring Security
+</a>
+<ul>
+    <li>
+<a href="https://docs.spring.io/spring-authorization-server/reference/">
+  Spring Authorization Server
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-ldap/reference/">
+  Spring LDAP
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-security-kerberos/reference/">
+  Spring Security Kerberos
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-session/reference/">
+  Spring Session
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-vault/reference/">
+  Spring Vault
+</a>
+</li>
+</ul>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-ai/reference/">
+  Spring AI
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-amqp/reference/">
+  Spring AMQP
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-cli/reference/">
+  Spring CLI
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-graphql/reference/">
+  Spring GraphQL
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-kafka/reference/">
+  Spring for Apache Kafka
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-modulith/reference/">
+  Spring Modulith
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-pulsar/reference/">
+  Spring for Apache Pulsar
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-shell/reference/">
+  Spring Shell
+</a>
+</li>
+    </ul>
+  </li><a href="https://docs.spring.io/spring-ai/reference/spring-projects.html">All Docs...</a>
+</ul>
+                </div>
+              </div>
+            </main>
+        </div>
+    </div>
+</div>
+
+</div>
+<footer class="footer flex">
+    <div id="spring-links flex">
+        <img id="springlogo" src="./ETL_files/spring-logo.svg" alt="Spring">
+        <p class="smallest antialiased">Copyright © 2005 - <script>var d = new Date();
+        document.write(d.getFullYear());</script>2025 Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.<br><a href="https://www.vmware.com/help/legal.html">Terms of Use</a> • <a href="https://www.vmware.com/help/privacy.html" rel="noopener noreferrer">Privacy</a> • <a href="https://spring.io/trademarks">Trademark Guidelines</a> <span id="thank-you-mobile">• <a href="https://spring.io/thank-you">Thank you</a></span> • <a href="https://www.vmware.com/help/privacy/california-privacy-rights.html">Your California Privacy Rights</a> • <a class="ot-sdk-show-settings">Cookie Settings</a> <span id="teconsent"></span></p>
+        <p class="smallest antialiased has-gray-text">Apache®, Apache Tomcat®, Apache Kafka®, Apache Cassandra™, and Apache Geode™ are trademarks or registered trademarks of the Apache Software Foundation in the United States and/or other countries. Java™, Java™ SE, Java™ EE, and OpenJDK™ are trademarks of Oracle and/or its affiliates. Kubernetes® is a registered trademark of the Linux Foundation in the United States and other countries. Linux® is the registered trademark of Linus Torvalds in the United States and other countries. Windows® and Microsoft® Azure are registered trademarks of Microsoft Corporation. “AWS” and “Amazon Web Services” are trademarks or registered trademarks of Amazon.com Inc. or its affiliates. All other trademarks and copyrights are property of their respective owners and are only mentioned for informative purposes. Other names may be trademarks of their respective owners.</p>
+    </div>
+    <div id="social-icons" class="flex jc-between">
+        <a href="https://www.youtube.com/user/SpringSourceDev" title="Youtube"><svg id="youtube-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><circle class="cls-1" cx="20" cy="20" r="20"></circle><path class="cls-2" d="M30.91,14.53a2.89,2.89,0,0,0-2-2C27.12,12,20,12,20,12s-7.12,0-8.9.47a2.9,2.9,0,0,0-2,2A30.56,30.56,0,0,0,8.63,20a30.44,30.44,0,0,0,.46,5.47,2.89,2.89,0,0,0,2,2C12.9,28,20,28,20,28s7.12,0,8.9-.47a2.87,2.87,0,0,0,2-2A30.56,30.56,0,0,0,31.37,20,28.88,28.88,0,0,0,30.91,14.53ZM17.73,23.41V16.59L23.65,20Z"></path></svg></a>
+        <a href="https://github.com/spring-projects" title="GitHub"><svg id="github-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 75.93 75.93"><path class="cls-1" d="M38,0a38,38,0,1,0,38,38A38,38,0,0,0,38,0Z"></path><path class="cls-2" d="M38,15.59A22.95,22.95,0,0,0,30.71,60.3c1.15.21,1.57-.5,1.57-1.11s0-2,0-3.9c-6.38,1.39-7.73-3.07-7.73-3.07A6.09,6.09,0,0,0,22,48.86c-2.09-1.42.15-1.39.15-1.39a4.81,4.81,0,0,1,3.52,2.36c2,3.5,5.37,2.49,6.67,1.91a4.87,4.87,0,0,1,1.46-3.07c-5.09-.58-10.45-2.55-10.45-11.34a8.84,8.84,0,0,1,2.36-6.15,8.29,8.29,0,0,1,.23-6.07s1.92-.62,6.3,2.35a21.82,21.82,0,0,1,11.49,0c4.38-3,6.3-2.35,6.3-2.35a8.29,8.29,0,0,1,.23,6.07,8.84,8.84,0,0,1,2.36,6.15c0,8.81-5.37,10.75-10.48,11.32a5.46,5.46,0,0,1,1.56,4.25c0,3.07,0,5.54,0,6.29s.42,1.33,1.58,1.1A22.94,22.94,0,0,0,38,15.59Z"></path></svg></a>
+        <a href="https://twitter.com/springcentral" title="Twitter"><svg id="twitter-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 75.93 75.93"><circle class="cls-1" cx="37.97" cy="37.97" r="37.97"></circle><path id="Twitter-2" data-name="Twitter" class="cls-2" d="M55.2,22.73a15.43,15.43,0,0,1-4.88,1.91,7.56,7.56,0,0,0-5.61-2.49A7.78,7.78,0,0,0,37,30a7.56,7.56,0,0,0,.2,1.79,21.63,21.63,0,0,1-15.84-8.23,8,8,0,0,0,2.37,10.52,7.66,7.66,0,0,1-3.48-1v.09A7.84,7.84,0,0,0,26.45,41a7.54,7.54,0,0,1-2,.28A7.64,7.64,0,0,1,23,41.09a7.71,7.71,0,0,0,7.18,5.47,15.21,15.21,0,0,1-9.55,3.37,15.78,15.78,0,0,1-1.83-.11,21.41,21.41,0,0,0,11.78,3.54c14.13,0,21.86-12,21.86-22.42,0-.34,0-.68,0-1a15.67,15.67,0,0,0,3.83-4.08,14.9,14.9,0,0,1-4.41,1.24A7.8,7.8,0,0,0,55.2,22.73Z"></path></svg></a>
+    </div>
+</footer>
+<script src="./ETL_files/import.js.下载"></script>
+<script src="./ETL_files/site.js.下载"></script>
+<script async="" src="./ETL_files/highlight.js.下载"></script>
+<script async="" src="./ETL_files/asciidoctor-tabs.js.下载" data-sync-storage-key="docs:preferred-tab"></script>
+
+<div class="modal micromodal-slide" id="modal-1" aria-hidden="true">
+    <div class="modal__overlay" tabindex="-1" data-micromodal-close="">
+        <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
+            <main class="modal__content" id="modal-1-content">
+                <div id="searchbox"></div>
+                <div id="counter"></div>
+                <div class="search-link-box">
+                    <a class="search-link" href="https://docs.spring.io/spring-ai/reference/search.html">Search in all Spring Docs</a>
+                </div>
+                <div class="search-by">
+                    <a target="_blank" rel="noopener noreferrer" href="https://www.algolia.com/" aria-label="Search by Algolia">
+                        <img class="light" width="140" src="./ETL_files/algolia-light.svg">
+                        <img class="dark" width="140" src="./ETL_files/algolia-dark.svg">
+                    </a>
+                </div>
+                <div id="hits"></div>
+            </main>
+        </div>
+    </div>
+</div>
+
+<script src="./ETL_files/hotkeys.min.js.下载"></script>
+<script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.17.0/dist/algoliasearch-lite.umd.js" integrity="sha256-Lf9DrpGmcRip6OQzbcL6lnvNmoZNSKpyQX5pMlwatWE=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.54.1/dist/instantsearch.production.min.js" integrity="sha256-xYsZPDeNjYNTBWLvqD2Lxe98hOxcDgOHyMPfz4tVAbk=" crossorigin="anonymous"></script>
+<script async="" id="search-script" src="./ETL_files/search.js.下载" data-app-id="WB1FQYI187" data-api-key="c2e84f15fa630d534f1c62b1c413bb77" data-index-name="springdocs" data-stylesheet="../../_/css/vendor/search.css" data-page-version="1.0.0-M7" data-page-component="ai"></script>
+  <script>if (window.parent == window) {(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o), m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-2728886-23', 'auto', {'siteSpeedSampleRate': 100});ga('send', 'pageview');}</script><script defer="" src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon="{&quot;rayId&quot;:&quot;938335989bd92578&quot;,&quot;serverTiming&quot;:{&quot;name&quot;:{&quot;cfExtPri&quot;:true,&quot;cfL4&quot;:true,&quot;cfSpeedBrain&quot;:true,&quot;cfCacheStatus&quot;:true}},&quot;version&quot;:&quot;2025.4.0-1-g37f21b1&quot;,&quot;token&quot;:&quot;bffcb8a918ae4755926f76178bfbd26b&quot;}" crossorigin="anonymous"></script>
+
+
+</body></html>

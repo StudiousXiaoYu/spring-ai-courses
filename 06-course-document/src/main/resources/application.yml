@@ -1,0 +1,36 @@
+server:
+  port: 9166
+spring:
+  ai:
+    vectorstore:
+      milvus:
+        client:
+          host: "localhost"
+          port: 19530
+          username: "root"
+          password: "milvus"
+        databaseName: "default"
+        collectionName: "vector_store"
+        initialize-schema: true
+        embeddingDimension: 1024
+        indexType: IVF_FLAT
+        metricType: COSINE
+    openai:
+      api-key:
+      base-url:
+      embedding:
+        base-url:
+        options:
+          model:
+          dimensions: 1024
+      chat:
+        options:
+          model:
+logging:
+  level:
+    org:
+      springframework:
+        ai:
+          chat:
+            client:
+              advisor: DEBUG
