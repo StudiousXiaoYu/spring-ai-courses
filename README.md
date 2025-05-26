@@ -3,6 +3,8 @@
 
 欢迎来到[《Spring AI 通关秘籍》](https://www.xiaobot.net/p/SpringAI?refer=c6fd3e66-9981-4d70-957d-7d758e6e23e6)专栏的 GitHub 仓库！这里包含了我在专栏课程中讲解的核心代码，目的是帮助你更好地理解和掌握 Spring AI 框架的精髓。专栏中的内容从零基础入手，循序渐进地介绍如何将 AI 技术应用到 Spring 开发中，结合实际项目，带你一步步掌握这个强大的工具。
 
+![title.png](images/title.png)
+
 项目代码也会随着Spring AI 版本的更新而更新，以适应最新的 Spring AI 版本和开发需求。如果觉得有所帮助，就点一个star吧！
 
 ## 快速开始
