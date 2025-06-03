@@ -1,18 +1,13 @@
 {
   "mcpServers": {
-    "baidu-map": {
-      "command": "uv",
+    "mcp-server-hotnews": {
+      "command": "cmd",
       "args": [
-        "run",
-        "--with",
-        "mcp[cli]",
-        "mcp",
-        "run",
-        "D:\\project\\python\\mcp\\baidu_map_mcp_server\\main.py"
-      ],
-      "env": {
-        "BAIDU_MAPS_API_KEY": ""
-      }
+        "/c",
+        "npx",
+        "-y",
+        "@wopal/mcp-server-hotnews"
+      ]
     }
   }
 }
