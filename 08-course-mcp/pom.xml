@@ -26,7 +26,6 @@
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <knife4j-version>4.1.0</knife4j-version>
-        <spring-ai-alibaba.version>1.0.0-M6.2-SNAPSHOT</spring-ai-alibaba.version>
         <hutool-version>5.8.2</hutool-version>
     </properties>
     <dependencyManagement>
@@ -34,7 +33,7 @@
             <dependency>
                 <groupId>org.springframework.ai</groupId>
                 <artifactId>spring-ai-bom</artifactId>
-                <version>1.0.0-M7</version>
+                <version>1.0.0</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
