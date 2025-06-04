@@ -8,6 +8,17 @@
         "-y",
         "@wopal/mcp-server-hotnews"
       ]
+    },
+    "spring-ai-mcp-weather": {
+      "command": "java",
+      "args": [
+        "-Dspring.ai.mcp.server.stdio=true",
+        "-Dspring.main.web-application-type=none",
+        "-Dlogging.pattern.console=",
+        "-Dmybatis-plus.global-config.banner=false",
+        "-jar",
+        "D:/project/spring-ai-courses/08-course-mcp/course-mcp-server/target/course-mcp-server-1.0-SNAPSHOT.jar"
+      ]
     }
   }
 }
